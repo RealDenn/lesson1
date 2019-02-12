@@ -1,14 +1,13 @@
 var canvas = document.getElementById("clock");
 var context = canvas.getContext("2d");
-var circle = new Path2D;
+var circle = new Path2D();
+context.lineWidth = 4;
+
+
+
 
 circle.arc(150, 150, 150, 0, 2 * Math.PI);
 context.stroke(circle);
-
-
-    
-   
-
 function drawWatch() {
     context.clearRect(0,0,300,300);
     circle = new Path2D();
@@ -35,35 +34,55 @@ for(d = 0; d < 60; ++d) {
 
 } 
 var date = new Date(), hours,minutes,seconds;
-seconds = date.getSeconds();
-minutes = date.getMinutes();
-hours = date.getHours();
+    seconds = date.getSeconds();
+    minutes = date.getMinutes();
+    hours = date.getHours();
 
 var sX,sY;
-lineS = new Path2D();
-var  secondsAngle = (seconds / 60) * (2 * Math.PI)
-secondsAngle = Math.PI / 2 - secondsAngle;
+    lineS = new Path2D();
+    var  secondsAngle = (seconds / 60) * (2 * Math.PI)
+    secondsAngle = Math.PI / 2 - secondsAngle;
+    sX = Math.cos(secondsAngle) * R * 0.85;
+    sY = -Math.sin(secondsAngle) * R * 0.85;
+    sX += R; sY += R;
+    lineS.moveTo(150,150);
+    lineS.lineTo(sX,sY);
+    context.stroke(lineS);
 
-var hoursAngle = ((hours % 12) / 12) * (2 * Math.PI)
-hoursAngle = Math.PI / 2 - hoursAngle;
-
-sX = Math.cos(secondsAngle) * R * 0.85;
-sY = -Math.sin(secondsAngle) * R * 0.85;
-sX += R; sY += R;
 
 var mX,mY;
-lineM = new Path2D();
-var minutesAngle = (minutes / 60) * (2 * Math.PI)
-minutesAngle = Math.PI / 2 - minutesAngle;
+    
+    lineM = new Path2D();
+    var minutesAngle = (minutes / 60) * (2 * Math.PI)
+    minutesAngle = Math.PI / 2 - minutesAngle;
+    mX = Math.cos(minutesAngle) * R * 0.75;
+    mY = -Math.sin(minutesAngle) * R * 0.75;
+    mX += R; mY += R;
+    lineM.moveTo(150,150);
+    lineM.lineTo(mX,mY);
+    
+    context.stroke(lineM);
+    
+   
 
-mX = Math.cos(minutesAngle) * R * 0.75;
-mY = -Math.sin(minutesAngle) * R * 0.75;
-mX += R; mY += R;
+  
+    
+var hX,hY;
+    lineH = new Path2D();
+    var hoursAngle = ((hours % 12) / 12) * (2 * Math.PI)
+    hoursAngle = Math.PI / 2 - hoursAngle;
+    hX = Math.cos(hoursAngle) * R * 0.55;
+    hY = -Math.sin(hoursAngle) * R * 0.55;
+    hX += R; hY += R;
+    lineH.moveTo(150,150);
+    lineH.lineTo(hX,hY);
+    context.stroke(lineH);
+    
+    
+    
 
-lineS.moveTo(150,150);
-lineS.lineTo(sX,sY);
-context.stroke(lineS);
 
 setTimeout(drawWatch,1000);
 }
 drawWatch();
+
